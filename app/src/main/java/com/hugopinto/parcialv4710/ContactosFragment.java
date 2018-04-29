@@ -1,12 +1,20 @@
 package com.hugopinto.parcialv4710;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
+import java.util.Currency;
+import java.util.List;
 
 
 /**
@@ -18,6 +26,13 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class ContactosFragment extends Fragment {
+
+    private View v;
+    private RecyclerView recyclerView;
+
+
+
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -64,7 +79,41 @@ public class ContactosFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_contactos, container, false);
+        //inflando la vista contactos
+        v=inflater.inflate(R.layout.fragment_contactos,container,false);
+        recyclerView=v.findViewById(R.id.contactos_recycler);
+
+        //seteando el layout manager en este caso grid
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),3);
+        RecyclerView.LayoutManager layoutManager= gridLayoutManager;
+        recyclerView.setLayoutManager(layoutManager);
+
+        ContactosRvAdapter adapter = new ContactosRvAdapter(getContext(),getContactos());
+
+        recyclerView.setAdapter(adapter);
+
+
+
+
+
+
+
+
+        return v;
+
+
+    }
+    private List<Contacto> getContactos(){
+
+        List<Contacto> list = new ArrayList<>();
+        Cursor cursor= getContext().getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, null,null
+                ,null,ContactsContract.Contacts.DISPLAY_NAME+" ASC");
+        cursor.moveToFirst();
+        while(cursor.moveToNext()){
+            list.add(new Contacto(cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))));
+        }
+
+        return list;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
