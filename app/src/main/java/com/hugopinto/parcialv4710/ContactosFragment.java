@@ -7,15 +7,15 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
-import java.util.Currency;
 import java.util.List;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -85,7 +85,7 @@ public class ContactosFragment extends Fragment {
 
         //seteando el layout manager en este caso grid
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),3);
-        RecyclerView.LayoutManager layoutManager= gridLayoutManager;
+        RecyclerView.LayoutManager layoutManager = gridLayoutManager;
         recyclerView.setLayoutManager(layoutManager);
 
         ContactosRvAdapter adapter = new ContactosRvAdapter(getContext(),getContactos());
@@ -104,15 +104,13 @@ public class ContactosFragment extends Fragment {
 
     }
     private List<Contacto> getContactos(){
-
         List<Contacto> list = new ArrayList<>();
         Cursor cursor= getContext().getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, null,null
                 ,null,ContactsContract.Contacts.DISPLAY_NAME+" ASC");
         cursor.moveToFirst();
         while(cursor.moveToNext()){
-            list.add(new Contacto(cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))));
+            list.add(new Contacto(cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))));
         }
-
         return list;
     }
 

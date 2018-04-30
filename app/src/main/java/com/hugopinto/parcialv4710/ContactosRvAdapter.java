@@ -40,16 +40,9 @@ public class ContactosRvAdapter extends RecyclerView.Adapter<ContactosRvAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
-        TextView nombre;
-
-        nombre=holder.nombre;
-
-        nombre.setText(mlistaContactos.get(position).getNombre());
-
-
-
-
+        TextView name;
+        name=holder.nombre;
+        name.setText(mlistaContactos.get(position).getNombre());
     }
 
     @Override

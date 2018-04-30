@@ -5,6 +5,7 @@ import android.app.LoaderManager;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -41,6 +42,35 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements ContactosFragment.OnFragmentInteractionListener,FavoritosFragment.OnFragmentInteractionListener {
 
+    static final int REQUEST_CODE_ASK_PERMISSION = 2018;
+    int Read;
+
+    private void accessPermission(){
+        Read = ActivityCompat.checkSelfPermission(this,Manifest.permission.READ_CONTACTS);
+
+        if(Read != PackageManager.PERMISSION_GRANTED){
+            requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},REQUEST_CODE_ASK_PERMISSION);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults){
+        switch(requestCode){
+            case REQUEST_CODE_ASK_PERMISSION:
+                if(grantResults[0] ==PackageManager.PERMISSION_GRANTED){
+                    Toast.makeText(getApplicationContext(), "Ha autorizado el permiso", Toast.LENGTH_SHORT).show();
+
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),"Permiso denegado",Toast.LENGTH_SHORT).show();
+                }
+                break;
+
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -61,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements ContactosFragment
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        accessPermission();
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -84,6 +115,8 @@ public class MainActivity extends AppCompatActivity implements ContactosFragment
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+            Intent intent = new Intent(getApplicationContext(), MainContactoPortrait.class);
+            startActivity(intent);
             }
         });
 
@@ -96,6 +129,8 @@ public class MainActivity extends AppCompatActivity implements ContactosFragment
         // Inflate the menu; this adds items to the action bar if it is present.
         MenuInflater inflater=getMenuInflater();
         inflater.inflate(R.menu.menu_main,menu);
+
+
 
 
         return true;
@@ -155,8 +190,10 @@ public class MainActivity extends AppCompatActivity implements ContactosFragment
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-           return rootView;
+
+            return rootView;
         }
+
     }
 
     /**

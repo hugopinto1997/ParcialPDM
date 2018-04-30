@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#000000">
+<LinearLayout
+    android:layout_width="130dp"
+    android:layout_height="130dp"
+    android:layout_gravity="center">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/cimg"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center"
+        android:layout_centerInParent="true"
+        android:src="@android:drawable/ic_menu_camera"
+        app:civ_border_width="2dp"
+        app:civ_border_color="#ffffff" />
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/addimg"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginRight="8dp"
+        android:layout_gravity="bottom|end"
+        android:layout_centerInParent="true"
+        android:src="@android:drawable/ic_input_add"
+        app:civ_border_width="2dp"
+        app:civ_border_color="#ffffff" />
+
+</LinearLayout>
+
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="64dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginRight="64dp"
+            android:textColor="#ffffff"
+            android:maxLines="1"
+            android:inputType="text"
+            android:shadowColor="#ffffff"
+            android:textColorHint="#ffffff"
+            android:hint="Name"/>
+        <EditText
+            android:id="@+id/lastname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="64dp"
+            android:layout_marginRight="64dp"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textColor="#ffffff"
+            android:shadowColor="#ffffff"
+            android:textColorHint="#ffffff"
+            android:hint="Last Name"/>
+        <EditText
+            android:inputType="text"
+            android:id="@+id/id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="64dp"
+            android:layout_marginRight="64dp"
+            android:textColor="#ffffff"
+            android:shadowColor="#ffffff"
+            android:textColorHint="#ffffff"
+            android:hint="ID"/>
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="64dp"
+            android:layout_marginRight="64dp"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:textColor="#ffffff"
+            android:shadowColor="#ffffff"
+            android:textColorHint="#ffffff"
+            android:hint="Email"/>
+        <EditText
+            android:inputType="text"
+            android:id="@+id/address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="64dp"
+            android:layout_marginRight="64dp"
+            android:textColor="#ffffff"
+            android:maxLines="4"
+            android:shadowColor="#ffffff"
+            android:textColorHint="#ffffff"
+            android:hint="Address"/>
+        <EditText
+            android:id="@+id/number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="64dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginRight="64dp"
+            android:textColor="#ffffff"
+            android:inputType="phone"
+            android:shadowColor="#ffffff"
+            android:textColorHint="#ffffff"
+            android:hint="Number"/>
+        <TextView
+            android:id="@+id/birthdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="64dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginRight="64dp"
+            android:textColor="#ffffff"
+            android:enabled="true"
+            android:shadowColor="#ffffff"
+            android:textColorHint="#ffffff"
+            android:hint="Birth Date"/>
+        <Button
+            android:id="@+id/agregarcontacto"
+            android:layout_marginTop="16dp"
+            android:background="#4169e1"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Add Contact"
+            android:textSize="14sp"/>
+
+
+
+
+
+
+
+
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

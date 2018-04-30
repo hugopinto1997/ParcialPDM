@@ -15,11 +15,4 @@ public class Contacto {
         this.nombre = nombre;
     }
 
-
-
-
-
-
-
-
 }
