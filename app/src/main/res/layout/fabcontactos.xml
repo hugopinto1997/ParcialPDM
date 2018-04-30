@@ -9,32 +9,33 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="#000000">
-<LinearLayout
-    android:layout_width="130dp"
-    android:layout_height="130dp"
-    android:layout_gravity="center">
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/cimg"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="8dp"
-        android:layout_gravity="center"
-        android:layout_centerInParent="true"
-        android:src="@android:drawable/ic_menu_camera"
-        app:civ_border_width="2dp"
-        app:civ_border_color="#ffffff" />
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/addimg"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginRight="8dp"
-        android:layout_gravity="bottom|end"
-        android:layout_centerInParent="true"
-        android:src="@android:drawable/ic_input_add"
-        app:civ_border_width="2dp"
-        app:civ_border_color="#ffffff" />
+        <LinearLayout
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_gravity="center">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/cimg"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="8dp"
+                android:layout_gravity="center"
+                android:layout_centerInParent="true"
+                android:src="@android:drawable/ic_menu_camera"
+                app:civ_border_width="2dp"
+                app:civ_border_color="#ffffff" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/addimg"
+                android:onClick="addimgclick"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="8dp"
+                android:layout_gravity="bottom|end"
+                android:layout_centerInParent="true"
+                android:src="@android:drawable/ic_input_add"
+                app:civ_border_width="2dp"
+                app:civ_border_color="#ffffff" />
 
-</LinearLayout>
+        </LinearLayout>
 
 
         <EditText
