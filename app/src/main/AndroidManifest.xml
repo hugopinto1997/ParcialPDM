@@ -6,6 +6,9 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
     <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
+    <uses-permission-sdk-23 android:name="android.permission.READ_CALENDAR"/>
+    <uses-permission-sdk-23 android:name="android.permission.WRITE_CALENDAR"/>
+    <uses-permission-sdk-23 android:name="android.permission.WRITE_CALENDAR"/>
     <uses-permission-sdk-23 android:name="android.permission.GLOBAL_SEARCH"/>
     <uses-permission-sdk-23 android:name="android.permission.CAMERA"/>
     <uses-permission-sdk-23 android:name="android.permission.GLOBAL_SEARCH"/>
