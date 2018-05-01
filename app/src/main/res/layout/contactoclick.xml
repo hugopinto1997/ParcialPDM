@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="#1f155b"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:background="#000000">
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
+            android:layout_gravity="center">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/cimg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/msn"
+                app:civ_border_width="1dp"
+                app:civ_border_color="#ffffff" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:background="#1f155b"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/clickname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="#ffffff"
+                android:textSize="40sp"
+                android:text="Brendan Moore"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif"
+                android:layout_gravity="center"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                android:text="0061457"
+                android:gravity="center"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                android:text="Casa #25 Colonia X"
+                android:gravity="center"
+                android:layout_gravity="center"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                android:text="+503 2257-7777"
+                android:gravity="center"
+                android:layout_gravity="center"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_gravity="center"
+
+                android:layout_height="wrap_content">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/call"
+                    android:layout_width="72dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_height="72dp"
+                    app:civ_border_width="0dp"
+                    android:src="@android:drawable/stat_sys_phone_call"
+                    app:civ_circle_background_color="@color/colorAccent"
+                    app:civ_border_color="#ffffff"/>
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/call"
+                    android:layout_width="72dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_height="72dp"
+                    android:layout_gravity="center_horizontal"
+                    app:civ_border_width="0dp"
+                    android:src="@android:drawable/btn_star"
+                    app:civ_circle_background_color="@color/colorAccent"
+                    app:civ_border_color="#ffffff"/>
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/call"
+                    android:layout_width="72dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_height="72dp"
+                    android:layout_gravity="center_horizontal"
+                    app:civ_border_width="0dp"
+                    android:src="@android:drawable/ic_menu_share"
+                    app:civ_circle_background_color="@color/colorAccent"
+                    app:civ_border_color="#ffffff"/>
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

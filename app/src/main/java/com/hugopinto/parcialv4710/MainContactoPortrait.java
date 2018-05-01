@@ -2,6 +2,7 @@ package com.hugopinto.parcialv4710;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -28,14 +29,16 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Timer;
 
 public class MainContactoPortrait extends AppCompatActivity {
 
-    TextView nombre, apellido, id, correo, direccion, numero, hbd;
+    TextView nombre, apellido, idd, correo, direccion, numero, hbd;
     Button btn;
     TextView setcumple;
     private String fecha;
-    ImageView imagen, btnimg;
+    int numeroval;
+    ImageView imagenbot, btnimg;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     static final int REQUEST_CODE_ASK_PERMISSION = 2018;
     static final int rqw=200;
@@ -95,14 +98,44 @@ public class MainContactoPortrait extends AppCompatActivity {
 
         nombre = findViewById(R.id.name);
         apellido=findViewById(R.id.lastname);
-        id = findViewById(R.id.id);
+        idd = findViewById(R.id.id);
         correo = findViewById(R.id.email);
         direccion = findViewById(R.id.address);
         hbd = findViewById(R.id.birthdate);
+        numero= findViewById(R.id.number);
         btn = findViewById(R.id.agregarcontacto);
-        imagen=findViewById(R.id.cimg);
+        imagenbot=findViewById(R.id.cimg);
         btnimg=findViewById(R.id.addimg);
         setcumple=findViewById(R.id.sethbd);
+
+
+
+
+        btn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                if(nombre.getText().toString().isEmpty()||
+                        apellido.getText().toString().isEmpty()||
+                        idd.getText().toString().isEmpty()||
+                        correo.getText().toString().isEmpty()||
+                        direccion.getText().toString().isEmpty() ||
+                        numero.getText().toString().isEmpty() ||
+                        setcumple.getText().toString().isEmpty()||
+                        imagenbot==null){
+                    Toast.makeText(view.getContext(),"llene todos los campos",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Contacto c = new Contacto(nombre.getText().toString(), apellido.getText().toString(), idd.getText().toString(), correo.getText().toString(),
+                            direccion.getText().toString(), numero.getText().toString(), setcumple.getText().toString(),
+                            imagenbot.);
+                    Intent sendIntent = new Intent(getApplicationContext(), ContactosFragment.class);
+                    sendIntent.putExtra("Clave", c);
+                    setResult(Activity.RESULT_OK, sendIntent);
+                    finish();
+
+                }
+            }
+        });
 
 
 
@@ -152,7 +185,8 @@ public class MainContactoPortrait extends AppCompatActivity {
         MainContactoPortrait.super.onActivityResult(requestCode,resultCode,data);
         if(resultCode==RESULT_OK){
             Uri path=data.getData();
-            imagen.setImageURI(path);
+            Drawable draw;
+            imagenbot.setImageURI(path);
         }
     }
 

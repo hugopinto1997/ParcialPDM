@@ -1,6 +1,9 @@
 package com.hugopinto.parcialv4710;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.InflateException;
@@ -9,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -39,10 +43,22 @@ public class ContactosRvAdapter extends RecyclerView.Adapter<ContactosRvAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         TextView name;
+        ImageView imagen;
+        imagen=holder.imagen;
         name=holder.nombre;
         name.setText(mlistaContactos.get(position).getNombre());
+        name.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent newIntent = new Intent(v.getContext(),MainContactClick.class);
+                Bundle caja = new Bundle();
+                caja.putSerializable("Llave", mlistaContactos.get(position));
+                newIntent.putExtras(caja);
+                mContext.startActivity(newIntent);
+            }
+        });
     }
 
     @Override
@@ -53,11 +69,13 @@ public class ContactosRvAdapter extends RecyclerView.Adapter<ContactosRvAdapter.
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView nombre;
+        ImageView imagen;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             nombre=itemView.findViewById(R.id.name);
+            imagen=itemView.findViewById(R.id.img);
 
 
 

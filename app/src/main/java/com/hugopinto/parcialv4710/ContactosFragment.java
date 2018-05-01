@@ -1,11 +1,13 @@
 package com.hugopinto.parcialv4710;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,9 +15,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +34,8 @@ public class ContactosFragment extends Fragment {
 
     private View v;
     private RecyclerView recyclerView;
+    List<Contacto> list = new ArrayList<>();
+    private ContactosRvAdapter adapter;
 
 
 
@@ -72,8 +79,21 @@ public class ContactosFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
+
         }
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        if(resultCode == RESULT_OK && requestCode==2){
+            if(data.hasExtra("Clave")==true);
+                Contacto p = (Contacto)data.getExtras().getSerializable("Clave");
+                Toast.makeText(getContext(),"llego",Toast.LENGTH_SHORT).show();
+                list.add(p);
+            }
+    adapter.notifyDataSetChanged();
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -88,7 +108,8 @@ public class ContactosFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = gridLayoutManager;
         recyclerView.setLayoutManager(layoutManager);
 
-        ContactosRvAdapter adapter = new ContactosRvAdapter(getContext(),getContactos());
+        adapter = new ContactosRvAdapter(getContext(),getContactos());
+
 
         recyclerView.setAdapter(adapter);
 
@@ -104,7 +125,6 @@ public class ContactosFragment extends Fragment {
 
     }
     private List<Contacto> getContactos(){
-        List<Contacto> list = new ArrayList<>();
         Cursor cursor= getContext().getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, null,null
                 ,null,ContactsContract.Contacts.DISPLAY_NAME+" ASC");
         cursor.moveToFirst();
@@ -113,6 +133,7 @@ public class ContactosFragment extends Fragment {
         }
         return list;
     }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

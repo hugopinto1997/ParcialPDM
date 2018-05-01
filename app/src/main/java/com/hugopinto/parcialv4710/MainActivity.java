@@ -116,12 +116,13 @@ public class MainActivity extends AppCompatActivity implements ContactosFragment
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             Intent intent = new Intent(getApplicationContext(), MainContactoPortrait.class);
-            startActivity(intent);
+                startActivityForResult(intent, 2);
             }
         });
 
 
     }
+
 
 
     @Override
@@ -134,6 +135,14 @@ public class MainActivity extends AppCompatActivity implements ContactosFragment
 
 
         return true;
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+            fragment.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
 
@@ -179,6 +188,7 @@ public class MainActivity extends AppCompatActivity implements ContactosFragment
 
             switch (sectionNumber){
                 case 1: fragment= new ContactosFragment();
+                Fragment fragmento=fragment;
                     break;
                 case 2: fragment= new FavoritosFragment();
                     break;
