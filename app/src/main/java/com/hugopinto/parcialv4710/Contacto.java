@@ -13,13 +13,13 @@ public class Contacto implements Serializable {
     private String address;
     private String number;
     private String birthdate;
-    private int imagendraw;
+    private String imagendraw;
 
     public Contacto(String nombre) {
         this.nombre = nombre;
     }
     public Contacto(String nombre, String apellido, String id, String email, String address, String number, String birthdate
-    , int imagendraw){
+    , String imagendraw){
         this.nombre = nombre;
         this.apellido = apellido;
         this.id= id;
@@ -44,11 +44,11 @@ public class Contacto implements Serializable {
         return nombre;
     }
 
-    public int getImagendraw() {
+    public String getImagendraw() {
         return imagendraw;
     }
 
-    public void setImagendraw(int imagendraw) {
+    public void setImagendraw(String imagendraw) {
         this.imagendraw = imagendraw;
     }
 

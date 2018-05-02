@@ -48,6 +48,7 @@ public class ContactosRvAdapter extends RecyclerView.Adapter<ContactosRvAdapter.
         ImageView imagen;
         imagen=holder.imagen;
         name=holder.nombre;
+        imagen.setImageURI(Uri.parse(mlistaContactos.get(position).getImagendraw()));
         name.setText(mlistaContactos.get(position).getNombre());
         name.setOnClickListener(new View.OnClickListener(){
             @Override

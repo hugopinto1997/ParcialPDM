@@ -35,6 +35,7 @@ public class MainContactoPortrait extends AppCompatActivity {
 
     TextView nombre, apellido, idd, correo, direccion, numero, hbd;
     Button btn;
+    String auxuri;
     TextView setcumple;
     private String fecha;
     int numeroval;
@@ -125,9 +126,11 @@ public class MainContactoPortrait extends AppCompatActivity {
                     Toast.makeText(view.getContext(),"llene todos los campos",Toast.LENGTH_SHORT).show();
                 }
                 else{
+                    String uris = auxuri;
+                    Toast.makeText(getApplicationContext(), uris, Toast.LENGTH_SHORT).show();
                     Contacto c = new Contacto(nombre.getText().toString(), apellido.getText().toString(), idd.getText().toString(), correo.getText().toString(),
                             direccion.getText().toString(), numero.getText().toString(), setcumple.getText().toString(),
-                            imagenbot.);
+                            uris);
                     Intent sendIntent = new Intent(getApplicationContext(), ContactosFragment.class);
                     sendIntent.putExtra("Clave", c);
                     setResult(Activity.RESULT_OK, sendIntent);
@@ -185,7 +188,7 @@ public class MainContactoPortrait extends AppCompatActivity {
         MainContactoPortrait.super.onActivityResult(requestCode,resultCode,data);
         if(resultCode==RESULT_OK){
             Uri path=data.getData();
-            Drawable draw;
+            auxuri = path.toString();
             imagenbot.setImageURI(path);
         }
     }
