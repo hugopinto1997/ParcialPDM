@@ -24,6 +24,7 @@ public class ContactosRvAdapter extends RecyclerView.Adapter<ContactosRvAdapter.
     private Context mContext;
     private LayoutInflater inflater;
     private List<Contacto> mlistaContactos;
+    private Context contexto;
 
     public ContactosRvAdapter(Context Context, List<Contacto> listaContactos){
 
@@ -48,7 +49,11 @@ public class ContactosRvAdapter extends RecyclerView.Adapter<ContactosRvAdapter.
         ImageView imagen;
         imagen=holder.imagen;
         name=holder.nombre;
-        imagen.setImageURI(Uri.parse(mlistaContactos.get(position).getImagendraw()));
+        if(mlistaContactos.get(position).getImagendraw() == null){
+            imagen.setImageAlpha(R.drawable.msn);
+        }else{
+            imagen.setImageURI(Uri.parse(mlistaContactos.get(position).getImagendraw()));
+        }
         name.setText(mlistaContactos.get(position).getNombre());
         name.setOnClickListener(new View.OnClickListener(){
             @Override

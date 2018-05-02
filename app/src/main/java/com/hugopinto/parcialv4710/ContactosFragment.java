@@ -88,7 +88,6 @@ public class ContactosFragment extends Fragment {
         if(resultCode == RESULT_OK && requestCode==2){
             if(data.hasExtra("Clave")==true);
                 Contacto p = (Contacto)data.getExtras().getSerializable("Clave");
-                Toast.makeText(getContext(),"llego",Toast.LENGTH_SHORT).show();
                 list.add(p);
             }
     adapter.notifyDataSetChanged();
@@ -129,7 +128,13 @@ public class ContactosFragment extends Fragment {
                 ,null,ContactsContract.Contacts.DISPLAY_NAME+" ASC");
         cursor.moveToFirst();
         while(cursor.moveToNext()){
-            list.add(new Contacto(cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))));
+            list.add(new Contacto(cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Contactables.DISPLAY_NAME_ALTERNATIVE)),
+                    cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Contactables.DISPLAY_NAME_ALTERNATIVE)),
+                    cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID)),
+                    cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.DISPLAY_NAME_ALTERNATIVE)),
+                    cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID)),
+                    cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME_ALTERNATIVE)),
+                    cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID))));
         }
         return list;
     }

@@ -35,10 +35,11 @@ public class MainContactoPortrait extends AppCompatActivity {
 
     TextView nombre, apellido, idd, correo, direccion, numero, hbd;
     Button btn;
-    String auxuri;
+    int auxuri;
     TextView setcumple;
     private String fecha;
     int numeroval;
+    String saveuri;
     ImageView imagenbot, btnimg;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     static final int REQUEST_CODE_ASK_PERMISSION = 2018;
@@ -126,16 +127,13 @@ public class MainContactoPortrait extends AppCompatActivity {
                     Toast.makeText(view.getContext(),"llene todos los campos",Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    String uris = auxuri;
-                    Toast.makeText(getApplicationContext(), uris, Toast.LENGTH_SHORT).show();
                     Contacto c = new Contacto(nombre.getText().toString(), apellido.getText().toString(), idd.getText().toString(), correo.getText().toString(),
                             direccion.getText().toString(), numero.getText().toString(), setcumple.getText().toString(),
-                            uris);
+                            saveuri);
                     Intent sendIntent = new Intent(getApplicationContext(), ContactosFragment.class);
                     sendIntent.putExtra("Clave", c);
                     setResult(Activity.RESULT_OK, sendIntent);
                     finish();
-
                 }
             }
         });
@@ -188,8 +186,8 @@ public class MainContactoPortrait extends AppCompatActivity {
         MainContactoPortrait.super.onActivityResult(requestCode,resultCode,data);
         if(resultCode==RESULT_OK){
             Uri path=data.getData();
-            auxuri = path.toString();
             imagenbot.setImageURI(path);
+            saveuri=path.toString();
         }
     }
 

@@ -1,11 +1,12 @@
 package com.hugopinto.parcialv4710;
 
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.io.Serializable;
 
-public class Contacto implements Serializable {
+public class Contacto implements Serializable{
     private String nombre;
     private String apellido;
     private String id;
