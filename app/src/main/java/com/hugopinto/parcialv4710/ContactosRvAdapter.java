@@ -52,7 +52,7 @@ public class ContactosRvAdapter extends RecyclerView.Adapter<ContactosRvAdapter.
         if(mlistaContactos.get(position).getImagendraw() == null){
             imagen.setImageAlpha(R.drawable.msn);
         }else{
-            imagen.setImageURI(Uri.parse(mlistaContactos.get(position).getImagendraw()));
+            imagen.setImageURI(Uri.parse(mlistaContactos.get(position).getImagendraw().toString()));
         }
         name.setText(mlistaContactos.get(position).getNombre());
         name.setOnClickListener(new View.OnClickListener(){
@@ -81,7 +81,7 @@ public class ContactosRvAdapter extends RecyclerView.Adapter<ContactosRvAdapter.
             super(itemView);
 
             nombre=itemView.findViewById(R.id.name);
-            imagen=itemView.findViewById(R.id.img);
+            imagen=itemView.findViewById(R.id.imgl);
 
 
 

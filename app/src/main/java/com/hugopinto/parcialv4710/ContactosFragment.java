@@ -1,5 +1,6 @@
 package com.hugopinto.parcialv4710;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -87,10 +88,10 @@ public class ContactosFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         if(resultCode == RESULT_OK && requestCode==2){
             if(data.hasExtra("Clave")==true);
-                Contacto p = (Contacto)data.getExtras().getSerializable("Clave");
-                list.add(p);
-            }
-    adapter.notifyDataSetChanged();
+            Contacto p = (Contacto)data.getExtras().getSerializable("Clave");
+            list.add(0,p);
+        }
+        adapter.notifyDataSetChanged();
     }
 
 
@@ -124,17 +125,23 @@ public class ContactosFragment extends Fragment {
 
     }
     private List<Contacto> getContactos(){
-        Cursor cursor= getContext().getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, null,null
-                ,null,ContactsContract.Contacts.DISPLAY_NAME+" ASC");
+        Cursor cursor= getContext().getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,null, null
+                , null,ContactsContract.Contacts.DISPLAY_NAME+" ASC");
+        Uri fotografia= Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE+
+        "://"+getResources().getResourcePackageName(R.drawable.msn2)+'/'+
+        getResources().getResourceTypeName(R.drawable.msn2)+'/'+getResources().getResourceEntryName(R.drawable.msn2));
         cursor.moveToFirst();
         while(cursor.moveToNext()){
-            list.add(new Contacto(cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Contactables.DISPLAY_NAME_ALTERNATIVE)),
-                    cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Contactables.DISPLAY_NAME_ALTERNATIVE)),
-                    cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID)),
-                    cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.DISPLAY_NAME_ALTERNATIVE)),
-                    cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID)),
-                    cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME_ALTERNATIVE)),
-                    cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID))));
+                list.add(new Contacto(cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)),
+                        cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME_ALTERNATIVE)),
+                        cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone._ID)),
+                        cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DATA1)),
+                        cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)),
+                        cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)),
+                        cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Event.START_DATE)),
+                        fotografia.toString()));
+
+
         }
         return list;
     }

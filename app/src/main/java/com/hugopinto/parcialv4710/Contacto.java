@@ -20,7 +20,7 @@ public class Contacto implements Serializable{
         this.nombre = nombre;
     }
     public Contacto(String nombre, String apellido, String id, String email, String address, String number, String birthdate
-    , String imagendraw){
+            , String imagendraw){
         this.nombre = nombre;
         this.apellido = apellido;
         this.id= id;
