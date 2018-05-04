@@ -16,12 +16,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
+import static com.hugopinto.parcialv4710.R.id.action_search;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,7 +39,7 @@ public class ContactosFragment extends Fragment {
     private RecyclerView recyclerView;
     List<Contacto> list = new ArrayList<>();
     private ContactosRvAdapter adapter;
-
+    List<Contacto> backup = new ArrayList<>();
 
 
 
@@ -90,6 +92,7 @@ public class ContactosFragment extends Fragment {
             if(data.hasExtra("Clave")==true);
             Contacto p = (Contacto)data.getExtras().getSerializable("Clave");
             list.add(0,p);
+            backup.add(0,p);
         }
         adapter.notifyDataSetChanged();
     }
@@ -113,9 +116,49 @@ public class ContactosFragment extends Fragment {
 
         recyclerView.setAdapter(adapter);
 
+        SearchView search = getActivity().findViewById(R.id.action_search);
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                list.clear();
+                query = query.toLowerCase();
+
+                for(int i=0; i < backup.size(); i++){
+                    if(list.get(i).getNombre().toLowerCase().contains(query) ){
+                        list.add(backup.get(i));
+                    }
+                }
+                adapter.notifyDataSetChanged();
+                return true;
+
+
+            }
 
 
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                list.clear();
+                if(newText.length() ==0) {
+                    list.addAll(backup);
+                    adapter.notifyDataSetChanged();
+                }
+                else {
+                    newText = newText.toLowerCase();
+                    for(int i=0; i < backup.size(); i++){
+                        if(backup.get(i).getNombre().toLowerCase().contains(newText)){
+                            list.add(backup.get(i));
+                        }
+                    }
+
+                    adapter.notifyDataSetChanged();
+                    return true;
+                }
+
+                return true;
+            }
+        });
 
 
 
@@ -140,6 +183,14 @@ public class ContactosFragment extends Fragment {
                         cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)),
                         cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Event.START_DATE)),
                         fotografia.toString()));
+            backup.add(new Contacto(cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)),
+                    cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME_ALTERNATIVE)),
+                    cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone._ID)),
+                    cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DATA1)),
+                    cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)),
+                    cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)),
+                    cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Event.START_DATE)),
+                    fotografia.toString()));
 
 
         }
