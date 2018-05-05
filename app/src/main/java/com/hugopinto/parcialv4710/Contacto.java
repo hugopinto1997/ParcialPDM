@@ -16,8 +16,13 @@ public class Contacto implements Serializable{
     private String birthdate;
     private String imagendraw;
 
-    public Contacto(String nombre) {
+    public Contacto(){
+
+    }
+
+    public Contacto(String nombre,String imagendraw) {
         this.nombre = nombre;
+        this.imagendraw=imagendraw;
     }
     public Contacto(String nombre, String apellido, String id, String email, String address, String number, String birthdate
             , String imagendraw){

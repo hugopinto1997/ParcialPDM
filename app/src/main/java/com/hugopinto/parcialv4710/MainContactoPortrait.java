@@ -36,6 +36,7 @@ public class MainContactoPortrait extends AppCompatActivity {
     TextView nombre, apellido, idd, correo, direccion, numero, hbd;
     Button btn;
     int auxuri;
+    String debug="falla";
     TextView setcumple;
     private String fecha;
     int numeroval;
@@ -92,6 +93,7 @@ public class MainContactoPortrait extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fabcontactos);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         accessPermission();
@@ -108,6 +110,8 @@ public class MainContactoPortrait extends AppCompatActivity {
         imagenbot = findViewById(R.id.cimg);
         btnimg = findViewById(R.id.addimg);
         setcumple = findViewById(R.id.sethbd);
+
+
 
 
         btn.setOnClickListener(new View.OnClickListener() {
@@ -132,6 +136,23 @@ public class MainContactoPortrait extends AppCompatActivity {
                     finish();
                 }
             }
+        });
+        imagenbot.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent newIntent = new Intent(view.getContext(),personaclickimagen.class);
+                Bundle caja = new Bundle();
+                Contacto e = new Contacto("","","","","","","",saveuri);
+                if(e.getImagendraw()==null){
+                    caja.putSerializable("images", debug);
+                    newIntent.putExtras(caja);
+                    startActivity(newIntent);
+                }else {
+                    caja.putSerializable("images", saveuri);
+                    newIntent.putExtras(caja);
+                    startActivity(newIntent);
+                }
+                }
         });
 
 

@@ -36,6 +36,7 @@ public class MainContactClick extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contactoclick);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         namepersonclick = findViewById(R.id.clickname);
         cid = findViewById(R.id.clickid);
@@ -50,7 +51,8 @@ public class MainContactClick extends AppCompatActivity {
 
 //hacemos un intent y ub bundle
         Intent intent = this.getIntent();
-        Bundle bundle = intent.getExtras();
+        Bund
+        le bundle = intent.getExtras();
 //creamos cosas necesarias
         final Contacto persona = (Contacto) bundle.getSerializable("Llave");
 // llenamos nuestro auto con las cosas

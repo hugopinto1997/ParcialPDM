@@ -1,12 +1,16 @@
 package com.hugopinto.parcialv4710;
 
+import android.Manifest;
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -24,6 +28,7 @@ import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 import static com.hugopinto.parcialv4710.R.id.action_search;
+import static com.hugopinto.parcialv4710.R.id.add;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,6 +45,35 @@ public class ContactosFragment extends Fragment {
     List<Contacto> list = new ArrayList<>();
     private ContactosRvAdapter adapter;
     List<Contacto> backup = new ArrayList<>();
+
+    static final int REQUEST_CODE_ASK_PERMISSION = 2018;
+    int Read;
+
+    private void accessPermission(){
+        Read = ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.READ_CONTACTS);
+
+        if(Read != PackageManager.PERMISSION_GRANTED){
+            requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},REQUEST_CODE_ASK_PERMISSION);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults){
+        switch(requestCode){
+            case REQUEST_CODE_ASK_PERMISSION:
+                if(grantResults[0] ==PackageManager.PERMISSION_GRANTED){
+                    Toast.makeText(getContext(), "Ha autorizado el permiso", Toast.LENGTH_SHORT).show();
+
+                }
+                else{
+                    Toast.makeText(getContext(),"Permiso denegado",Toast.LENGTH_SHORT).show();
+                }
+                break;
+
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
 
 
 
@@ -82,6 +116,7 @@ public class ContactosFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+            accessPermission();
 
 
         }
@@ -105,6 +140,7 @@ public class ContactosFragment extends Fragment {
         //inflando la vista contactos
         v=inflater.inflate(R.layout.fragment_contactos,container,false);
         recyclerView=v.findViewById(R.id.contactos_recycler);
+        accessPermission();
 
         //seteando el layout manager en este caso grid
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),3);
@@ -168,32 +204,44 @@ public class ContactosFragment extends Fragment {
 
     }
     private List<Contacto> getContactos(){
-        Cursor cursor= getContext().getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,null, null
+        Cursor cursor= getContext().getContentResolver().query(ContactsContract.Contacts.CONTENT_URI,null, null
                 , null,ContactsContract.Contacts.DISPLAY_NAME+" ASC");
         Uri fotografia= Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE+
-        "://"+getResources().getResourcePackageName(R.drawable.msn2)+'/'+
-        getResources().getResourceTypeName(R.drawable.msn2)+'/'+getResources().getResourceEntryName(R.drawable.msn2));
-        cursor.moveToFirst();
-        while(cursor.moveToNext()){
-                list.add(new Contacto(cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)),
-                        cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME_ALTERNATIVE)),
-                        cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone._ID)),
-                        cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DATA1)),
-                        cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)),
-                        cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)),
-                        cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Event.START_DATE)),
-                        fotografia.toString()));
-            backup.add(new Contacto(cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)),
-                    cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME_ALTERNATIVE)),
-                    cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone._ID)),
-                    cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DATA1)),
-                    cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)),
-                    cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)),
-                    cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Event.START_DATE)),
-                    fotografia.toString()));
+                "://"+getResources().getResourcePackageName(R.drawable.msn2)+'/'+
+                getResources().getResourceTypeName(R.drawable.msn2)+'/'+getResources().getResourceEntryName(R.drawable.msn2));
+        while(cursor.moveToNext()) {
+            Contacto x = new Contacto("","","","","","","",fotografia.toString());
+            String name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+            String apellido = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME_ALTERNATIVE));
+            String id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
+            String ad = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME_SOURCE));
+            x.setNombre(name);
+            x.setApellido(apellido);
+            x.setId(id);
+            x.setAddress(ad);
 
 
+            Cursor phone = getContext().getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI
+            ,null,ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = "+id,null,null);
+            String phon;
+            while (phone.moveToNext()){
+                phon=phone.getString(phone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                if(phone.getString(phone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.PHOTO_URI))==null){
+                    x.setImagendraw(fotografia.toString());
+                }else{
+                    x.setImagendraw(phone.getString(phone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.PHOTO_URI)));
+                }
+                x.setNumber(phon);
+            }
+            phone.close();
+
+
+           list.add(x);
+           backup.add(x);
         }
+
+
+
         return list;
     }
 

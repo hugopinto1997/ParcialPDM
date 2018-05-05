@@ -93,7 +93,6 @@ public class MainActivity extends AppCompatActivity implements ContactosFragment
         setContentView(R.layout.activity_main);
         accessPermission();
 
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three

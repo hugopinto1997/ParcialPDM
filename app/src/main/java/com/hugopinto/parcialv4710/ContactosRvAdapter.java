@@ -65,6 +65,17 @@ public class ContactosRvAdapter extends RecyclerView.Adapter<ContactosRvAdapter.
                 mContext.startActivity(newIntent);
             }
         });
+        imagen.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent newIntent = new Intent(view.getContext(),imagenfull.class);
+                Bundle caja = new Bundle();
+                caja.putSerializable("imagen", mlistaContactos.get(position));
+                newIntent.putExtras(caja);
+                mContext.startActivity(newIntent);
+            }
+        });
+
     }
 
     @Override
