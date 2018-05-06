@@ -4,6 +4,8 @@ import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -22,12 +24,14 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.Calendar;
 
 public class MainContactClick extends AppCompatActivity {
 
     TextView namepersonclick,apell, cid, emaill, address, numero, birthday;
-    ImageView imagenclick, btn;
+    ImageView imagenclick, btn, btnshare;
     int auxcosa;
 
 
@@ -48,11 +52,11 @@ public class MainContactClick extends AppCompatActivity {
         birthday=findViewById(R.id.clickbirthdate);
         imagenclick = findViewById(R.id.photo);
         btn=findViewById(R.id.call);
+        btnshare = findViewById(R.id.compartir);
 
 //hacemos un intent y ub bundle
         Intent intent = this.getIntent();
-        Bund
-        le bundle = intent.getExtras();
+        Bundle bundle = intent.getExtras();
 //creamos cosas necesarias
         final Contacto persona = (Contacto) bundle.getSerializable("Llave");
 // llenamos nuestro auto con las cosas
@@ -103,6 +107,55 @@ public class MainContactClick extends AppCompatActivity {
 
                     }
                 }
+            }
+        });
+        imagenclick.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent newIntent = new Intent(v.getContext(),personaclickfullimage.class);
+                Bundle caja = new Bundle();
+                caja.putSerializable("cimagenf", persona);
+                newIntent.putExtras(caja);
+                startActivity(newIntent);
+            }
+        });
+        btnshare.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Bitmap bitmap;
+                bitmap=jalarbitmapdelview(imagenclick);
+                try {
+                    File file = new File(getExternalCacheDir(),"logicchip.png");
+                    FileOutputStream fOut = new FileOutputStream(file);
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+                    fOut.flush();
+                    fOut.close();
+                    file.setReadable(true, false);
+                    final Intent intent = new Intent(Intent.ACTION_SEND);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+                    intent.putExtra(Intent.EXTRA_TEXT, "Contacto: \nNombre: "+persona.getNombre().toString()+"\n: "+
+                            "\nGitHub: "+"\nCorreo: "+
+                            "\nTwitter: "+"\nTelefono: ");
+                    intent.setType("image/png");
+                    startActivity(Intent.createChooser(intent, "Enviar a"));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+            private Bitmap jalarbitmapdelview(View view){
+                Bitmap Retorno=Bitmap.createBitmap(view.getWidth(),view.getHeight(), Bitmap.Config.ARGB_8888);
+                Canvas canvas = new Canvas(Retorno);
+                Drawable bgDrawable= view.getBackground();
+                if(bgDrawable!=null){
+                    bgDrawable.draw(canvas);
+                }
+                else{
+                    canvas.drawColor(Color.BLACK);
+                }
+                view.draw(canvas);
+                return Retorno;
             }
         });
 

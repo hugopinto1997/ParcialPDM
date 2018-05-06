@@ -18,6 +18,7 @@ public class personaclickimagen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personaclickimagen);
+        getSupportActionBar().setTitle("Imagen");
         ImageView comprobando = findViewById(R.id.photo);
 
         Intent intent = this.getIntent();

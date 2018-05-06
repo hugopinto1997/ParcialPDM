@@ -129,7 +129,7 @@
                     app:civ_border_color="#ffffff"/>
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/call4"
+                    android:id="@+id/compartir"
                     android:layout_width="72dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"

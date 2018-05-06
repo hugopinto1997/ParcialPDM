@@ -16,6 +16,7 @@ public class imagenfull extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_imagenfull);
 
+
         ImageView comprobando = findViewById(R.id.photo);
 
         Intent intent = this.getIntent();
@@ -24,7 +25,11 @@ public class imagenfull extends AppCompatActivity {
 //creamos cosas necesarias
         String foto = (String) bundle2.getSerializable("image");
         final Contacto persona = (Contacto) bundle.getSerializable("imagen");
+        getSupportActionBar().setTitle("Foto de: "+persona.getNombre());
         PhotoView photo = findViewById(R.id.photo_view);
         photo.setImageURI(Uri.parse(persona.getImagendraw()));
+
+
     }
+
 }

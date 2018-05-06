@@ -57,7 +57,8 @@
             android:label="Agregar un nuevo Contacto"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".imagenfull" />
-        <activity android:name=".personaclickimagen"></activity>
+        <activity android:name=".personaclickimagen" />
+        <activity android:name=".personaclickfullimage"></activity>
     </application>
 
 </manifest>
