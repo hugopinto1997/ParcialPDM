@@ -139,9 +139,9 @@ public class MainContactClick extends AppCompatActivity {
                     final Intent intent = new Intent(Intent.ACTION_SEND);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
-                    intent.putExtra(Intent.EXTRA_TEXT, "Contacto: \nNombre: "+persona.getNombre().toString()+"\n: "+
-                            "\nGitHub: "+"\nCorreo: "+
-                            "\nTwitter: "+"\nTelefono: ");
+                    intent.putExtra(Intent.EXTRA_TEXT, "Contacto: \nNombre: "+persona.getNombre().toString()+"\nApellido: "+persona.getApellido()
+                            +"\nID: "+persona.getId()+"\nCorreo: "+persona.getEmail()+
+                            "\nDireccion: "+persona.getAddress()+"\nTelefono: "+persona.getNumber()+"\nBirthdate: "+persona.getBirthdate());
                     intent.setType("image/png");
                     startActivity(Intent.createChooser(intent, "Enviar a"));
                 } catch (Exception e) {
