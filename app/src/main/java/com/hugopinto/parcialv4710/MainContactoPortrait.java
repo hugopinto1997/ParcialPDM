@@ -178,8 +178,6 @@ public class MainContactoPortrait extends AppCompatActivity {
                 setcumple.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
             }
         };
-
-
     }
 
 

@@ -61,6 +61,7 @@ public class ContactosRvAdapter extends RecyclerView.Adapter<ContactosRvAdapter.
                 Intent newIntent = new Intent(v.getContext(),MainContactClick.class);
                 Bundle caja = new Bundle();
                 caja.putSerializable("Llave", mlistaContactos.get(position));
+                newIntent.putExtra(Intent.EXTRA_TEXT, String.valueOf(position));
                 newIntent.putExtras(caja);
                 mContext.startActivity(newIntent);
             }

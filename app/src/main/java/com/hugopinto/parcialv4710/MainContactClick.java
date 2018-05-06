@@ -32,6 +32,7 @@ public class MainContactClick extends AppCompatActivity {
 
     TextView namepersonclick,apell, cid, emaill, address, numero, birthday, editar;
     ImageView imagenclick, btn, btnshare;
+    String recibirpos;
 
     int auxcosa;
 
@@ -59,6 +60,7 @@ public class MainContactClick extends AppCompatActivity {
 //hacemos un intent y ub bundle
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
+        recibirpos = intent.getStringExtra(Intent.EXTRA_TEXT);
 //creamos cosas necesarias
         final Contacto persona = (Contacto) bundle.getSerializable("Llave");
 // llenamos nuestro auto con las cosas
@@ -118,6 +120,7 @@ public class MainContactClick extends AppCompatActivity {
                 Bundle caja = new Bundle();
                 caja.putSerializable("cimagenf", persona);
                 newIntent.putExtras(caja);
+                newIntent.putExtra(Intent.EXTRA_TEXT, recibirpos);
                 startActivity(newIntent);
             }
         });
@@ -166,7 +169,7 @@ public class MainContactClick extends AppCompatActivity {
             public void onClick(View v){
                 Intent newIntent = new Intent(v.getContext(),editpersonaclick.class);
                 Bundle caja = new Bundle();
-                caja.putSerializable("cimagenf", persona);
+                caja.putSerializable("editar", persona);
                 newIntent.putExtras(caja);
                 startActivity(newIntent);
             }

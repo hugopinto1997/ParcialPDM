@@ -29,6 +29,7 @@ import java.util.List;
 import static android.app.Activity.RESULT_OK;
 import static com.hugopinto.parcialv4710.R.id.action_search;
 import static com.hugopinto.parcialv4710.R.id.add;
+import static java.lang.Integer.parseInt;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,6 +49,8 @@ public class ContactosFragment extends Fragment {
 
     static final int REQUEST_CODE_ASK_PERMISSION = 2018;
     int Read;
+    Contacto c;
+    String pos;
 
     private void accessPermission(){
         Read = ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.READ_CONTACTS);
@@ -262,6 +265,30 @@ public class ContactosFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        pos = null;
+        c = null;
+        Intent getdata = getActivity().getIntent();
+        if(getdata.getStringExtra(Intent.EXTRA_TEXT) !=null){
+            Intent getinfo = getActivity().getIntent();
+            Bundle bundle = getinfo.getExtras();
+            c = (Contacto) bundle.getSerializable("main");
+            pos= getinfo.getStringExtra(Intent.EXTRA_TEXT);
+
+
+
+            if (backup.get(parseInt(pos)) != c) {
+                list.set(parseInt(pos), c);
+                backup.set(parseInt(pos), c);
+
+
+            }
+            adapter.notifyDataSetChanged();
+        }
+
     }
 
     @Override

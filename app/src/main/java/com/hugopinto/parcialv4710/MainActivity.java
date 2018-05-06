@@ -44,12 +44,19 @@ public class MainActivity extends AppCompatActivity implements ContactosFragment
 
     static final int REQUEST_CODE_ASK_PERMISSION = 2018;
     int Read;
+    int prueba;
+    Contacto contacto;
+    String posit;
 
     private void accessPermission(){
         Read = ActivityCompat.checkSelfPermission(this,Manifest.permission.READ_CONTACTS);
 
         if(Read != PackageManager.PERMISSION_GRANTED){
             requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},REQUEST_CODE_ASK_PERMISSION);
+            prueba=0;
+        }
+        else{
+            prueba=1;
         }
     }
 
@@ -87,35 +94,54 @@ public class MainActivity extends AppCompatActivity implements ContactosFragment
      */
     private ViewPager mViewPager;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        accessPermission();
+            accessPermission();
+            setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+            // Create the adapter that will return a fragment for each of the three
+            // primary sections of the activity.
+            mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+            // Set up the ViewPager with the sections adapter.
+            mViewPager = (ViewPager) findViewById(R.id.container);
+            mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+            TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 
-        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+            mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+            tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            Intent intent = new Intent(getApplicationContext(), MainContactoPortrait.class);
-                startActivityForResult(intent, 2);
-            }
-        });
+            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getApplicationContext(), MainContactoPortrait.class);
+                    startActivityForResult(intent, 2);
+                }
+            });
+
+
+
+    }
+    @Override
+    public void onResume() {
+        Intent getdata = this.getIntent();
+        if(getdata.getStringExtra(Intent.EXTRA_TEXT) !=null){
+            Bundle bundle = getdata.getExtras();
+            contacto = (Contacto) bundle.getSerializable("main");
+            posit= getdata.getStringExtra(Intent.EXTRA_TEXT);
+
+            super.onResume();
+
+        }
+        else{
+            super.onResume();
+        }
 
 
     }
