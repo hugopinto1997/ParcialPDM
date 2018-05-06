@@ -30,8 +30,9 @@ import java.util.Calendar;
 
 public class MainContactClick extends AppCompatActivity {
 
-    TextView namepersonclick,apell, cid, emaill, address, numero, birthday;
+    TextView namepersonclick,apell, cid, emaill, address, numero, birthday, editar;
     ImageView imagenclick, btn, btnshare;
+
     int auxcosa;
 
 
@@ -53,6 +54,7 @@ public class MainContactClick extends AppCompatActivity {
         imagenclick = findViewById(R.id.photo);
         btn=findViewById(R.id.call);
         btnshare = findViewById(R.id.compartir);
+        editar = findViewById(R.id.edit);
 
 //hacemos un intent y ub bundle
         Intent intent = this.getIntent();
@@ -64,28 +66,28 @@ public class MainContactClick extends AppCompatActivity {
         if(persona.getAddress()==null){
             address.setText("DIRECCION:  No posee dirección");
         }else{
-            address.setText("DIRECCION:"+persona.getAddress().toString());
+            address.setText("DIRECCION:  "+persona.getAddress().toString());
         }
         if(persona.getEmail()==null){
             emaill.setText("DIRECCION:  No posee dirección");
         }else{
-            emaill.setText("EMAIL:"+persona.getEmail().toString());
+            emaill.setText("EMAIL: "+persona.getEmail().toString());
         }
         imagenclick.setImageURI(Uri.parse(persona.getImagendraw()));
         if(persona.getNumber()==null){
             numero.setText("NUMERO: No posee numero");
         }else{
-            numero.setText("NUMERO:"+persona.getNumber().toString());
+            numero.setText("NUMERO:  "+persona.getNumber().toString());
         }
         if(persona.getApellido()==null){
             apell.setText("APELLIDO: No definido");
         }else{
-            apell.setText("APELLIDO:"+persona.getApellido().toString());
+            apell.setText("APELLIDO:  "+persona.getApellido().toString());
         }
         if(persona.getBirthdate()==null){
             birthday.setText("BIRTH DATE: No definido");
         }else{
-            birthday.setText("BIRTH DATE:"+persona.getBirthdate().toString());
+            birthday.setText("BIRTH DATE:  "+persona.getBirthdate().toString());
         }
         cid.setText("ID:"+persona.getId().toString());
 
@@ -156,6 +158,17 @@ public class MainContactClick extends AppCompatActivity {
                 }
                 view.draw(canvas);
                 return Retorno;
+            }
+        });
+
+        editar.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent newIntent = new Intent(v.getContext(),editpersonaclick.class);
+                Bundle caja = new Bundle();
+                caja.putSerializable("cimagenf", persona);
+                newIntent.putExtras(caja);
+                startActivity(newIntent);
             }
         });
 

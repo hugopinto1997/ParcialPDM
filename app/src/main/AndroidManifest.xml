@@ -58,7 +58,8 @@
             android:parentActivityName=".MainActivity" />
         <activity android:name=".imagenfull" />
         <activity android:name=".personaclickimagen" />
-        <activity android:name=".personaclickfullimage"></activity>
+        <activity android:name=".personaclickfullimage" />
+        <activity android:name=".editpersonaclick"></activity>
     </application>
 
 </manifest>
