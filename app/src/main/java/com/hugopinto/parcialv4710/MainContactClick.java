@@ -170,6 +170,7 @@ public class MainContactClick extends AppCompatActivity {
                 Intent newIntent = new Intent(v.getContext(),editpersonaclick.class);
                 Bundle caja = new Bundle();
                 caja.putSerializable("editar", persona);
+                newIntent.putExtra(Intent.EXTRA_TEXT, recibirpos);
                 newIntent.putExtras(caja);
                 startActivity(newIntent);
             }

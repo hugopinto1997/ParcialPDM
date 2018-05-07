@@ -3,6 +3,7 @@ package com.hugopinto.parcialv4710;
 import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -85,6 +86,7 @@ public class editpersonaclick extends AppCompatActivity {
         setContentView(R.layout.activity_editpersonaclick);
         accessPermission();
         accessPermission2();
+        getSupportActionBar().setTitle("Editar Contacto");
 
         namepersonclicke = findViewById(R.id.clicknameeditar);
         cide = findViewById(R.id.clickideditar);
@@ -104,6 +106,8 @@ public class editpersonaclick extends AppCompatActivity {
         posicion = intent.getStringExtra(Intent.EXTRA_TEXT);
 //creamos cosas necesarias
         final Contacto persona = (Contacto) bundle.getSerializable("editar");
+        posicion = intent.getStringExtra(Intent.EXTRA_TEXT);
+        Toast.makeText(getApplicationContext(),posicion,Toast.LENGTH_SHORT).show();
 // llenamos nuestro auto con las cosas
         namepersonclicke.setText(persona.getNombre().toString());
         if (persona.getAddress() == null) {
@@ -169,15 +173,27 @@ public class editpersonaclick extends AppCompatActivity {
                         imagenbot == null) {
                     Toast.makeText(view.getContext(), "llene todos los campos", Toast.LENGTH_SHORT).show();
                 } else {
-                    Contacto c = new Contacto(namepersonclicke.getText().toString(), apelle.getText().toString(), cide.getText().toString(), emaille.getText().toString(),
-                            addresse.getText().toString(), numeroe.getText().toString(), birthdaye.getText().toString(),
-                            saveuri);
-                    Intent sendIntent = new Intent(getApplicationContext(), MainActivity.class);
-                    Bundle caja =new Bundle();
-                    caja.putSerializable("main",c);
-                    sendIntent.putExtras(caja);
-                    sendIntent.putExtra(Intent.EXTRA_TEXT,posicion);
-                    editpersonaclick.this.startActivity(sendIntent);
+                    if(saveuri!=null){
+                        Contacto c = new Contacto(namepersonclicke.getText().toString(), apelle.getText().toString(), cide.getText().toString(), emaille.getText().toString(),
+                                addresse.getText().toString(), numeroe.getText().toString(), birthdaye.getText().toString(),
+                                saveuri);
+                        Intent sendIntent = new Intent(getApplicationContext(), MainActivity.class);
+                        Bundle caja =new Bundle();
+                        caja.putSerializable("main",c);
+                        sendIntent.putExtras(caja);
+                        sendIntent.putExtra(Intent.EXTRA_TEXT,posicion);
+                        editpersonaclick.this.startActivity(sendIntent);
+                    }else {
+                        Contacto c = new Contacto(namepersonclicke.getText().toString(), apelle.getText().toString(), cide.getText().toString(), emaille.getText().toString(),
+                                addresse.getText().toString(), numeroe.getText().toString(), birthdaye.getText().toString(),
+                                persona.getImagendraw().toString());
+                        Intent sendIntent = new Intent(getApplicationContext(), MainActivity.class);
+                        Bundle caja =new Bundle();
+                        caja.putSerializable("main",c);
+                        sendIntent.putExtras(caja);
+                        sendIntent.putExtra(Intent.EXTRA_TEXT,posicion);
+                        editpersonaclick.this.startActivity(sendIntent);
+                    }
                 }
             }
         });
