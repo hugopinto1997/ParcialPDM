@@ -22,6 +22,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,6 +39,7 @@ public class MainContactoPortrait extends AppCompatActivity {
     int auxuri;
     String debug="falla";
     TextView setcumple;
+    CheckBox star;
     private String fecha;
     int numeroval;
     String saveuri;
@@ -129,7 +131,7 @@ public class MainContactoPortrait extends AppCompatActivity {
                 } else {
                     Contacto c = new Contacto(nombre.getText().toString(), apellido.getText().toString(), idd.getText().toString(), correo.getText().toString(),
                             direccion.getText().toString(), numero.getText().toString(), setcumple.getText().toString(),
-                            saveuri);
+                            saveuri, false);
                     Intent sendIntent = new Intent(getApplicationContext(), ContactosFragment.class);
                     sendIntent.putExtra("Clave", c);
                     setResult(Activity.RESULT_OK, sendIntent);

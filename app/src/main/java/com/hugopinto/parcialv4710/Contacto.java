@@ -15,6 +15,7 @@ public class Contacto implements Serializable{
     private String number;
     private String birthdate;
     private String imagendraw;
+    private boolean check;
 
     public Contacto(){
 
@@ -23,6 +24,18 @@ public class Contacto implements Serializable{
     public Contacto(String nombre,String imagendraw) {
         this.nombre = nombre;
         this.imagendraw=imagendraw;
+    }
+    public Contacto(String nombre, String apellido, String id, String email, String address, String number, String birthdate
+            , String imagendraw, boolean check){
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.id= id;
+        this.email = email;
+        this.address = address;
+        this.number=number;
+        this.birthdate=birthdate;
+        this.imagendraw=imagendraw;
+        this.check=check;
     }
     public Contacto(String nombre, String apellido, String id, String email, String address, String number, String birthdate
             , String imagendraw){
@@ -45,6 +58,13 @@ public class Contacto implements Serializable{
         this.birthdate = birthdate;
     }
 
+    public boolean isCheck() {
+        return check;
+    }
+
+    public void setCheck(boolean check) {
+        this.check = check;
+    }
 
     public String getNombre() {
         return nombre;

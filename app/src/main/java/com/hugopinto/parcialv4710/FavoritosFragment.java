@@ -4,9 +4,15 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 
 /**
@@ -18,6 +24,17 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class FavoritosFragment extends Fragment {
+    private View v;
+    private RecyclerView recyclerView;
+    ArrayList<Contacto> list = new ArrayList<>();
+    ArrayList<Contacto> list2 = new ArrayList<>();
+    private ContactosRvAdapter adapter;
+    ArrayList<Contacto> backup = new ArrayList<>();
+    Iterator iterator;
+    Bundle bundle;
+
+
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -64,7 +81,64 @@ public class FavoritosFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favoritos, container, false);
+        v=inflater.inflate(R.layout.fragment_favoritos,container,false);
+        recyclerView=v.findViewById(R.id.favoritos_recycler);
+
+        //seteando el layout manager en este caso grid
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),3);
+        RecyclerView.LayoutManager layoutManager = gridLayoutManager;
+        recyclerView.setLayoutManager(layoutManager);
+
+        bundle = getArguments();
+
+        adapter=new ContactosRvAdapter(getContext(),list){
+            @Override
+            public void onVerClick(View v, int pos) {
+
+            }
+
+            @Override
+            public void Contador(int cont) {
+
+            }
+        };
+        if(bundle != null){
+
+            int cont=0;
+
+            list2= (ArrayList<Contacto>) bundle.getSerializable("Pass");
+            iterator=list2.listIterator();
+
+            while(iterator.hasNext()){
+                Contacto serie = (Contacto) iterator.next();
+                list.add(cont,serie);
+                int i=0;
+                for (i = 0; i < cont; ++i) {
+                    if(list.get(i)==list.get(cont)){
+                        list.remove(i);
+                        list.remove(i);
+                        break;
+                    }
+                }
+                adapter.notifyItemInserted(cont);
+                adapter.notifyItemRangeChanged(cont,list.size());
+
+
+
+                cont++;
+
+
+            }
+
+
+
+        }
+
+
+        recyclerView.setAdapter(adapter);
+
+
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -10,6 +10,8 @@ import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,17 +21,24 @@ import org.w3c.dom.Text;
 import java.util.List;
 import java.util.zip.Inflater;
 
-public class ContactosRvAdapter extends RecyclerView.Adapter<ContactosRvAdapter.ViewHolder> {
+public abstract class ContactosRvAdapter extends RecyclerView.Adapter<ContactosRvAdapter.ViewHolder> {
 
     private Context mContext;
     private LayoutInflater inflater;
     private List<Contacto> mlistaContactos;
     private Context contexto;
+    public int Contador=0;
 
     public ContactosRvAdapter(Context Context, List<Contacto> listaContactos){
 
        mlistaContactos = listaContactos;
        mContext = Context;
+
+
+    }
+    public ContactosRvAdapter(List<Contacto> listaContactos){
+
+        mlistaContactos = listaContactos;
 
 
     }
@@ -47,6 +56,8 @@ public class ContactosRvAdapter extends RecyclerView.Adapter<ContactosRvAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         TextView name;
         ImageView imagen;
+        CheckBox star;
+        star = holder.star;
         imagen=holder.imagen;
         name=holder.nombre;
         if(mlistaContactos.get(position).getImagendraw() == null){
@@ -76,6 +87,16 @@ public class ContactosRvAdapter extends RecyclerView.Adapter<ContactosRvAdapter.
                 mContext.startActivity(newIntent);
             }
         });
+        star.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Toast.makeText(mContext, "sirve", Toast.LENGTH_SHORT).show();
+                mlistaContactos.get(position).setCheck(isChecked);
+                onVerClick(buttonView,position);
+                Contador(Contador);
+
+            }
+        });
 
     }
 
@@ -83,15 +104,19 @@ public class ContactosRvAdapter extends RecyclerView.Adapter<ContactosRvAdapter.
     public int getItemCount() {
         return mlistaContactos.size();
     }
+    public abstract void onVerClick(View v,int pos);
+    public abstract void Contador(int cont);
+
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView nombre;
         ImageView imagen;
+        CheckBox star;
 
         public ViewHolder(View itemView) {
             super(itemView);
-
+            star = itemView.findViewById(R.id.estrella);
             nombre=itemView.findViewById(R.id.name);
             imagen=itemView.findViewById(R.id.imgl);
 

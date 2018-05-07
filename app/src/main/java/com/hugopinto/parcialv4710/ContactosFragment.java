@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -43,9 +44,10 @@ public class ContactosFragment extends Fragment {
 
     private View v;
     private RecyclerView recyclerView;
-    List<Contacto> list = new ArrayList<>();
+    ArrayList<Contacto> list = new ArrayList<>();
+    ArrayList<Contacto> list3 = new ArrayList<>();
     private ContactosRvAdapter adapter;
-    List<Contacto> backup = new ArrayList<>();
+    ArrayList<Contacto> backup = new ArrayList<>();
 
     static final int REQUEST_CODE_ASK_PERMISSION = 2018;
     int Read;
@@ -150,7 +152,30 @@ public class ContactosFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = gridLayoutManager;
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new ContactosRvAdapter(getContext(),getContactos());
+        adapter = new ContactosRvAdapter(getContext(),getContactos()){
+            @Override
+            public void onVerClick(View v, int pos) {
+
+                if(list.get(pos).isCheck()) {
+
+                    FavoritosFragment frag = new FavoritosFragment();
+
+                    Bundle bundle = new Bundle();
+                    list3.add(list.get(pos));
+                    bundle.putSerializable("Pass", list3);
+
+                    frag.setArguments(bundle);
+                    final FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    ft.replace(R.id.Favor, frag);
+                    ft.commit();
+                }
+            }
+
+            public void Contador(int cont){
+
+            }
+
+        };
 
 
         recyclerView.setAdapter(adapter);
@@ -213,7 +238,7 @@ public class ContactosFragment extends Fragment {
                 "://"+getResources().getResourcePackageName(R.drawable.msn2)+'/'+
                 getResources().getResourceTypeName(R.drawable.msn2)+'/'+getResources().getResourceEntryName(R.drawable.msn2));
         while(cursor.moveToNext()) {
-            Contacto x = new Contacto("","","","","","","",fotografia.toString());
+            Contacto x = new Contacto("","","","","","","",fotografia.toString(),false);
             String name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
             String apellido = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME_ALTERNATIVE));
             String id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
@@ -222,6 +247,7 @@ public class ContactosFragment extends Fragment {
             x.setApellido(apellido);
             x.setId(id);
             x.setAddress(ad);
+            x.setCheck(false);
 
 
             Cursor phone = getContext().getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI
