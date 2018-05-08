@@ -23,21 +23,22 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
+import icepick.Icepick;
+import icepick.State;
+
 public class editpersonaclick extends AppCompatActivity {
 
     EditText namepersonclicke,apelle, cide, emaille, addresse, numeroe, editare;
     TextView birthdaye;
+   @State String cumpleanios;
     ImageView imagenclicke;
     Button bc;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     Button btn;
     ImageView imagenbot;
-    String saveuri, posicion;
+    @State String saveuri, posicion;
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
+
 
     static final int REQUEST_CODE_ASK_PERMISSION = 2018;
     static final int rqw = 200;
@@ -86,6 +87,13 @@ public class editpersonaclick extends AppCompatActivity {
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Icepick.saveInstanceState(this,outState);
+    }
+
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editpersonaclick);
@@ -104,6 +112,11 @@ public class editpersonaclick extends AppCompatActivity {
         bc = findViewById(R.id.btnsc);
         btn = findViewById(R.id.btneditar);
         imagenbot = findViewById(R.id.photoeditar);
+
+
+        if(cumpleanios!=null){
+            birthdaye.setText(cumpleanios);
+        }
 
 //hacemos un intent y ub bundle
         Intent intent = this.getIntent();
@@ -125,7 +138,6 @@ public class editpersonaclick extends AppCompatActivity {
         } else {
             emaille.setText(persona.getEmail().toString());
         }
-        imagenclicke.setImageURI(Uri.parse(persona.getImagendraw()));
         if (persona.getNumber() == null) {
             numeroe.setText("        ");
         } else {
@@ -137,12 +149,19 @@ public class editpersonaclick extends AppCompatActivity {
             apelle.setText(persona.getApellido().toString());
         }
         if (persona.getBirthdate() != null) {
-            birthdaye.setText(persona.getBirthdate().toString());
+            birthdaye.setText(cumpleanios);
+            cumpleanios = birthdaye.getText().toString();
         } else {
-            birthdaye.setText("click aqui");
+            birthdaye.setText(cumpleanios);
+            cumpleanios = birthdaye.getText().toString();
         }
         cide.setText(persona.getId().toString());
+        if(saveuri!=null){
+            imagenclicke.setImageURI(Uri.parse(saveuri));
 
+        }else{
+            imagenclicke.setImageURI(Uri.parse(persona.getImagendraw().toString()));
+        }
         bc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#1f155b"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:background="#000000">
+
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
+            android:layout_gravity="center">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/photoeditar"
+                android:src="@drawable/msn2"
+                android:onClick="addimgeditar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:civ_border_color="#ffffff"
+                app:civ_border_width="2dp"/>
+
+
+
+
+        </LinearLayout>
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="175dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:background="#1f155b"
+            android:layout_height="match_parent">
+
+
+            <EditText
+                android:id="@+id/clicknameeditar"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="8dp"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textColor="#ffffff"
+                android:textSize="40sp"
+                android:text="Brendan Moore"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif"
+                android:layout_gravity="center"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:layout_height="40dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="0dp"
+                    android:fontFamily="sans-serif"
+                    android:textColor="#ffffff"
+                    android:gravity="center"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
+                    android:text="APELLIDO:  "
+                    android:layout_gravity="center_horizontal"/>
+                <EditText
+                    android:gravity="center"
+                    android:id="@+id/clickapellidoeditar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="sans-serif"
+                    android:textColor="#ffffff"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
+                    android:text="0061457"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:layout_height="40dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="sans-serif"
+                    android:textColor="#ffffff"
+                    android:gravity="center"
+                    android:textSize="20dp"
+                    android:text="ID:  "
+                    android:layout_gravity="center_horizontal"/>
+                <EditText
+                    android:gravity="center"
+                    android:id="@+id/clickideditar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="0dp"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:fontFamily="sans-serif"
+                    android:textColor="#ffffff"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:text="0061457"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:layout_height="40dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="sans-serif"
+                    android:textColor="#ffffff"
+                    android:gravity="center"
+                    android:textSize="20dp"
+                    android:text="EMAIL:  "
+                    android:layout_gravity="center_horizontal"/>
+                <EditText
+                    android:gravity="center"
+                    android:id="@+id/clickemaileditar"
+                    android:inputType="textEmailAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="0dp"
+                    android:fontFamily="sans-serif"
+                    android:textColor="#ffffff"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:text="0061457"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:layout_height="40dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="sans-serif"
+                    android:textColor="#ffffff"
+                    android:gravity="center"
+                    android:textSize="20dp"
+                    android:text="DIRECCION:  "
+                    android:layout_gravity="center_horizontal"/>
+                <EditText
+                    android:gravity="center"
+                    android:id="@+id/clickdireccionedittar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="0dp"
+                    android:fontFamily="sans-serif"
+                    android:textColor="#ffffff"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:text="0061457"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:layout_height="40dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="sans-serif"
+                    android:textColor="#ffffff"
+                    android:gravity="center"
+                    android:textSize="20dp"
+                    android:text="NUMERO:  "
+                    android:layout_gravity="center_horizontal"/>
+                <EditText
+                    android:gravity="center"
+                    android:id="@+id/clicknumeroeditar"
+                    android:inputType="number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="0dp"
+                    android:fontFamily="sans-serif"
+                    android:textColor="#ffffff"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:text="0061457"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:layout_height="40dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="sans-serif"
+                    android:textColor="#ffffff"
+                    android:gravity="center"
+                    android:textSize="20dp"
+                    android:text="BIRTH DATE:  "
+                    android:layout_gravity="center_horizontal"/>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btnsc"
+                    android:text="agregar"
+                    android:background="@color/colorAccent"
+                    android:textColor="#ffffff"/>
+                <TextView
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center"
+                    android:id="@+id/clickbirthdateeditar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="0dp"
+                    android:fontFamily="sans-serif"
+                    android:textColor="#ffffff"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:text="click aqui"
+                    android:layout_gravity="center"/>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:layout_width="120dp"
+                    android:id="@+id/btneditar"
+                    android:layout_height="40dp"
+                    android:text="Guardar"
+                    android:background="@color/colorAccent"
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"/>
+
+
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+        </ScrollView>
+
+    </LinearLayout>
+
+
+
+
+
+    </LinearLayout>

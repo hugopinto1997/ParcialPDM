@@ -30,6 +30,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import icepick.Icepick;
+import icepick.State;
+
 import static android.app.Activity.RESULT_OK;
 import static com.hugopinto.parcialv4710.R.id.action_search;
 import static com.hugopinto.parcialv4710.R.id.add;
@@ -50,7 +53,7 @@ public class ContactosFragment extends Fragment {
     ArrayList<Contacto> list = new ArrayList<>();
     ArrayList<Contacto> list3 = new ArrayList<>();
     private ContactosRvAdapter adapter;
-    ArrayList<Contacto> backup = new ArrayList<>();
+    @State ArrayList<Contacto> backup = new ArrayList<>();
 
     static final int REQUEST_CODE_ASK_PERMISSION = 2018;
     int Read;
@@ -121,6 +124,7 @@ public class ContactosFragment extends Fragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
+        Icepick.saveInstanceState(this,outState);
     }
 
     @Override
@@ -153,6 +157,7 @@ public class ContactosFragment extends Fragment {
         //inflando la vista contactos
         v=inflater.inflate(R.layout.fragment_contactos,container,false);
         recyclerView=v.findViewById(R.id.contactos_recycler);
+        Icepick.restoreInstanceState(this,savedInstanceState);
         accessPermission();
 
         //seteando el layout manager en este caso grid
