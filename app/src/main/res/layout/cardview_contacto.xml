@@ -46,7 +46,7 @@
            android:layout_marginLeft="2dp"
            android:layout_marginRight="2dp"
            android:layout_height="wrap_content"
-           android:src="@android:drawable/ic_delete"/>
+           android:src="@android:drawable/ic_menu_delete"/>
    </LinearLayout>
 
 
