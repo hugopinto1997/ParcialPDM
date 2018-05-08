@@ -3,6 +3,7 @@ package com.hugopinto.parcialv4710;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,9 @@ import android.widget.SearchView;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import icepick.Icepick;
+import icepick.State;
 
 
 /**
@@ -30,7 +34,7 @@ public class FavoritosFragment extends Fragment {
     ArrayList<Contacto> list = new ArrayList<>();
     ArrayList<Contacto> list2 = new ArrayList<>();
     private ContactosRvAdapter2 adapter;
-    ArrayList<Contacto> backup = new ArrayList<>();
+    @State ArrayList<Contacto> backup = new ArrayList<>();
     Iterator iterator;
     Bundle bundle;
 
@@ -67,6 +71,11 @@ public class FavoritosFragment extends Fragment {
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
+    }
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Icepick.saveInstanceState(this,outState);
     }
 
     @Override
@@ -137,6 +146,8 @@ public class FavoritosFragment extends Fragment {
 
 
         recyclerView.setAdapter(adapter);
+        Icepick.restoreInstanceState(this,savedInstanceState);
+
 
 
 
