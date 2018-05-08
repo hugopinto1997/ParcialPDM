@@ -50,7 +50,7 @@ public class ContactosFragment extends Fragment {
 
     private View v;
     private RecyclerView recyclerView;
-    ArrayList<Contacto> list = new ArrayList<>();
+    ArrayList<Contacto> list= new ArrayList<>();
     ArrayList<Contacto> list3 = new ArrayList<>();
     private ContactosRvAdapter adapter;
     @State ArrayList<Contacto> backup = new ArrayList<>();
@@ -133,7 +133,7 @@ public class ContactosFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
-            accessPermission();
+
 
 
         }
@@ -157,7 +157,6 @@ public class ContactosFragment extends Fragment {
         //inflando la vista contactos
         v=inflater.inflate(R.layout.fragment_contactos,container,false);
         recyclerView=v.findViewById(R.id.contactos_recycler);
-        Icepick.restoreInstanceState(this,savedInstanceState);
         accessPermission();
 
         //seteando el layout manager en este caso grid
@@ -192,9 +191,11 @@ public class ContactosFragment extends Fragment {
 
 
         recyclerView.setAdapter(adapter);
+        Icepick.restoreInstanceState(this,savedInstanceState);
 
 
-            SearchView search = getActivity().findViewById(R.id.action_search);
+
+        SearchView search = getActivity().findViewById(R.id.action_search);
             search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
                 @Override

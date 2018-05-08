@@ -98,8 +98,14 @@ public class MainActivity extends AppCompatActivity implements ContactosFragment
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-            accessPermission();
             setContentView(R.layout.activity_main);
+        Read = ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS);
+
+        if (Read != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.READ_CONTACTS}, REQUEST_CODE_ASK_PERMISSION);
+            recreate();
+
+        }else {
 
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
@@ -124,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements ContactosFragment
                     startActivityForResult(intent, 2);
                 }
             });
+        }
 
 
 
