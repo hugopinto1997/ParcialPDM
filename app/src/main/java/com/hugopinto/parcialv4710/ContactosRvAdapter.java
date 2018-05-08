@@ -57,15 +57,26 @@ public abstract class ContactosRvAdapter extends RecyclerView.Adapter<ContactosR
         TextView name;
         ImageView imagen;
         CheckBox star;
+        ImageView delete;
+        delete = holder.delete;
         star = holder.star;
         imagen=holder.imagen;
         name=holder.nombre;
         if(mlistaContactos.get(position).getImagendraw() == null){
-            imagen.setImageAlpha(R.drawable.msn);
+            imagen.setImageAlpha(R.drawable.msn2);
         }else{
             imagen.setImageURI(Uri.parse(mlistaContactos.get(position).getImagendraw().toString()));
         }
         name.setText(mlistaContactos.get(position).getNombre());
+        delete.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                mlistaContactos.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position,mlistaContactos.size()-position);
+                notifyDataSetChanged();
+            }
+        });
         name.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -113,12 +124,14 @@ public abstract class ContactosRvAdapter extends RecyclerView.Adapter<ContactosR
         TextView nombre;
         ImageView imagen;
         CheckBox star;
+        ImageView delete;
 
         public ViewHolder(View itemView) {
             super(itemView);
             star = itemView.findViewById(R.id.estrella);
             nombre=itemView.findViewById(R.id.name);
             imagen=itemView.findViewById(R.id.imgl);
+            delete= itemView.findViewById(R.id.del);
 
 
 

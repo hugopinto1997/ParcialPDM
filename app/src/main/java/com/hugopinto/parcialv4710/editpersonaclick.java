@@ -100,6 +100,7 @@ public class editpersonaclick extends AppCompatActivity {
         accessPermission();
         accessPermission2();
         getSupportActionBar().setTitle("Editar Contacto");
+        Icepick.restoreInstanceState(this,savedInstanceState);
 
         namepersonclicke = findViewById(R.id.clicknameeditar);
         cide = findViewById(R.id.clickideditar);
@@ -114,9 +115,6 @@ public class editpersonaclick extends AppCompatActivity {
         imagenbot = findViewById(R.id.photoeditar);
 
 
-        if(cumpleanios!=null){
-            birthdaye.setText(cumpleanios);
-        }
 
 //hacemos un intent y ub bundle
         Intent intent = this.getIntent();
@@ -149,7 +147,7 @@ public class editpersonaclick extends AppCompatActivity {
             apelle.setText(persona.getApellido().toString());
         }
         if (persona.getBirthdate() != null) {
-            birthdaye.setText(cumpleanios);
+            birthdaye.setText(persona.getBirthdate());
             cumpleanios = birthdaye.getText().toString();
         } else {
             birthdaye.setText(cumpleanios);
