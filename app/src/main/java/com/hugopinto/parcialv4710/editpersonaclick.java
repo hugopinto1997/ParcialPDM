@@ -34,6 +34,11 @@ public class editpersonaclick extends AppCompatActivity {
     ImageView imagenbot;
     String saveuri, posicion;
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
     static final int REQUEST_CODE_ASK_PERMISSION = 2018;
     static final int rqw = 200;
     int calendario, calendario2;

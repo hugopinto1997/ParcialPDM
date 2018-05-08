@@ -32,6 +32,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
 
+import icepick.Icepick;
+import icepick.State;
+
 public class MainContactoPortrait extends AppCompatActivity {
 
     TextView nombre, apellido, idd, correo, direccion, numero, hbd;
@@ -40,9 +43,9 @@ public class MainContactoPortrait extends AppCompatActivity {
     String debug="falla";
     TextView setcumple;
     CheckBox star;
-    private String fecha;
+    @State String fecha;
     int numeroval;
-    String saveuri;
+    @State String saveuri, fechita;
     ImageView imagenbot, btnimg;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     static final int REQUEST_CODE_ASK_PERMISSION = 2018;
@@ -92,8 +95,16 @@ public class MainContactoPortrait extends AppCompatActivity {
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        fechita = setcumple.getText().toString();
+        Icepick.saveInstanceState(this,outState);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Icepick.restoreInstanceState(this, savedInstanceState);
         setContentView(R.layout.fabcontactos);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -112,6 +123,13 @@ public class MainContactoPortrait extends AppCompatActivity {
         imagenbot = findViewById(R.id.cimg);
         btnimg = findViewById(R.id.addimg);
         setcumple = findViewById(R.id.sethbd);
+
+        if(saveuri!=null){
+            imagenbot.setImageURI(Uri.parse(saveuri));
+        }
+        if(fechita!=null){
+            setcumple.setText(fechita);
+        }
 
 
 

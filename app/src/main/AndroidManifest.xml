@@ -59,7 +59,8 @@
         <activity android:name=".imagenfull" />
         <activity android:name=".personaclickimagen" />
         <activity android:name=".personaclickfullimage" />
-        <activity android:name=".editpersonaclick"></activity>
+        <activity android:name=".editpersonaclick" />
+        <activity android:name=".fragment_viewer"></activity>
     </application>
 
 </manifest>
