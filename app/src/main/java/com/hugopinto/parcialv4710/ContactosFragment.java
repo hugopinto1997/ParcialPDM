@@ -6,10 +6,12 @@ import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -17,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -116,6 +119,11 @@ public class ContactosFragment extends Fragment {
     }
 
     @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -131,8 +139,8 @@ public class ContactosFragment extends Fragment {
         if(resultCode == RESULT_OK && requestCode==2){
             if(data.hasExtra("Clave")==true);
             Contacto p = (Contacto)data.getExtras().getSerializable("Clave");
-            list.add(0,p);
-            backup.add(0,p);
+            list.add(p);
+            backup.add(p);
         }
         adapter.notifyDataSetChanged();
     }
@@ -167,7 +175,7 @@ public class ContactosFragment extends Fragment {
                     frag.setArguments(bundle);
                     final FragmentTransaction ft = getFragmentManager().beginTransaction();
                     ft.replace(R.id.Favor, frag);
-                    ft.commit();
+                    ft.commitAllowingStateLoss();
                 }
             }
 
@@ -180,49 +188,53 @@ public class ContactosFragment extends Fragment {
 
         recyclerView.setAdapter(adapter);
 
-        SearchView search = getActivity().findViewById(R.id.action_search);
-        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                list.clear();
-                query = query.toLowerCase();
+            SearchView search = getActivity().findViewById(R.id.action_search);
+            search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
-                for(int i=0; i < backup.size(); i++){
-                    if(list.get(i).getNombre().toLowerCase().contains(query) ){
-                        list.add(backup.get(i));
-                    }
-                }
-                adapter.notifyDataSetChanged();
-                return true;
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    list.clear();
+                    query = query.toLowerCase();
 
-
-            }
-
-
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                list.clear();
-                if(newText.length() ==0) {
-                    list.addAll(backup);
-                    adapter.notifyDataSetChanged();
-                }
-                else {
-                    newText = newText.toLowerCase();
                     for(int i=0; i < backup.size(); i++){
-                        if(backup.get(i).getNombre().toLowerCase().contains(newText)){
+                        if(list.get(i).getNombre().toLowerCase().contains(query) ||list.get(i).getNumber().toLowerCase().contains(query) ){
                             list.add(backup.get(i));
                         }
                     }
-
                     adapter.notifyDataSetChanged();
                     return true;
+
+
                 }
 
-                return true;
-            }
-        });
+
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    list.clear();
+                    if(newText.length() ==0) {
+                        list.addAll(backup);
+                        adapter.notifyDataSetChanged();
+                    }
+                    else {
+                        newText = newText.toLowerCase();
+                        for(int i=0; i < backup.size(); i++){
+                            if(backup.get(i).getNombre().toLowerCase().contains(newText) ||backup.get(i).getNumber().toLowerCase().contains(newText)){
+                                list.add(backup.get(i));
+                            }
+                        }
+
+                        adapter.notifyDataSetChanged();
+                        return true;
+                    }
+
+                    return true;
+                }
+            });
+
+
+
 
 
 

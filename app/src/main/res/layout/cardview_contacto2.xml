@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="115dp"
+    android:layout_height="200dp"
+    android:id="@+id/card_view"
+    card_view:cardUseCompatPadding="true"
+    android:layout_marginTop="2dp"
+    android:layout_marginBottom="2dp"
+    android:layout_marginLeft="4dp"
+    android:layout_marginRight="4dp"
+    android:elevation="7dp"
+    card_view:cardCornerRadius="5dp">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1f155b"
+    android:orientation="vertical">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_width="75dp"
+        android:id="@+id/imgl"
+        app:civ_border_width="2dp"
+        app:civ_border_color="#ffffff"
+        android:src="@drawable/msn"
+        android:layout_height="75dp"/>
+    <CheckBox
+        android:layout_marginTop="5dp"
+        android:id="@+id/estrella"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:checked="true"
+        android:layout_height="wrap_content"
+        style="@android:style/Widget.Material.Light.CompoundButton.Star"/>
+
+
+</LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_gravity="bottom"
+        android:gravity="center_vertical"
+        android:background="#060a93"
+        android:layout_height="50dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="#ffffff"
+            android:id="@+id/name"
+            android:layout_weight="1"
+            android:layout_marginLeft="8dp"
+            android:textAlignment="center"
+            android:layout_marginRight="8dp"
+            android:gravity="center_vertical"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:text="title"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="bold"/>
+
+
+
+
+
+    </LinearLayout>
+
+
+
+</android.support.v7.widget.CardView>
+

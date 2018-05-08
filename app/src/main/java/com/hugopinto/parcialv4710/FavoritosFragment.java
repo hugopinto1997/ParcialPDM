@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -28,7 +29,7 @@ public class FavoritosFragment extends Fragment {
     private RecyclerView recyclerView;
     ArrayList<Contacto> list = new ArrayList<>();
     ArrayList<Contacto> list2 = new ArrayList<>();
-    private ContactosRvAdapter adapter;
+    private ContactosRvAdapter2 adapter;
     ArrayList<Contacto> backup = new ArrayList<>();
     Iterator iterator;
     Bundle bundle;
@@ -91,7 +92,7 @@ public class FavoritosFragment extends Fragment {
 
         bundle = getArguments();
 
-        adapter=new ContactosRvAdapter(getContext(),list){
+        adapter=new ContactosRvAdapter2(getContext(),list){
             @Override
             public void onVerClick(View v, int pos) {
 
@@ -136,6 +137,8 @@ public class FavoritosFragment extends Fragment {
 
 
         recyclerView.setAdapter(adapter);
+
+
 
 
         return v;
